@@ -1,6 +1,6 @@
 # JavaMoss
 
-JavaMoss is a JNI binding layer for [MossFramework](../MossFramework). It exposes an
+JavaMoss is a JNI binding layer for [MossFramework](https://github.com/TxbiG/Moss). It exposes an
 idiomatic, ownership-safe Java API instead of exposing C++ layouts or symbols directly.
 
 ## Design
