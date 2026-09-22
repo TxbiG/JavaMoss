@@ -1,0 +1,15 @@
+cmake_minimum_required(VERSION 3.20)
+project(JavaMoss LANGUAGES CXX)
+
+set(MOSS_ROOT "C:/Users/TobyG/Documents/MossFramework" CACHE PATH "Path to the MossFramework checkout")
+if(NOT EXISTS "${MOSS_ROOT}/CMakeLists.txt")
+    message(FATAL_ERROR "MOSS_ROOT must point to a MossFramework checkout: ${MOSS_ROOT}")
+endif()
+
+find_package(JNI REQUIRED)
+add_subdirectory("${MOSS_ROOT}" "${CMAKE_BINARY_DIR}/moss")
+add_library(moss_jni SHARED native/moss_jni.cpp)
+target_compile_features(moss_jni PRIVATE cxx_std_20)
+target_include_directories(moss_jni PRIVATE ${JNI_INCLUDE_DIRS})
+target_link_libraries(moss_jni PRIVATE Moss)
+set_target_properties(moss_jni PROPERTIES OUTPUT_NAME "moss_jni")
