@@ -1,3 +1,4 @@
+[![Build](https://github.com/TxbiG/JavaMoss/actions/workflows/build.yml/badge.svg)](https://github.com/TxbiG/JavaMoss/actions/workflows/build.yml)
 # JavaMoss
 
 JavaMoss is a JNI binding layer for [MossFramework](https://github.com/TxbiG/Moss). It exposes an
