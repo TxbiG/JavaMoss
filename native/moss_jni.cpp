@@ -1,5 +1,29 @@
+#pragma once
+
 #include <jni.h>
+
+#include <Moss/Moss_stdinc.h>
 #include <Moss/Moss_Platform.h>
+#include <Moss/Moss_Audio.h>
+#include <Moss/Moss_GPU.h>
+#include <Moss/Moss_Renderer.h>
+#include <Moss/Moss_GUI.h>
+#include <Moss/Moss_Physics.h>
+#include <Moss/Moss_XR.h>
+#include <Moss/Moss_Navigation.h>
+
+#include <Moss/Variants/Vector/Vec2.h>
+#include <Moss/Variants/Vector/Vec3.h>
+#include <Moss/Variants/Vector/Vec4.h>
+#include <Moss/Variants/Matrix/Mat22.h>
+#include <Moss/Variants/Matrix/Mat33.h>
+#include <Moss/Variants/Matrix/Mat44.h>
+#include <Moss/Variants/Color.h>
+#include <Moss/Variants/Quat.h>
+#include <Moss/Variants/Rect.h>
+#include <Moss/Variants/TArray.h>
+#include <Moss/Variants/Math/Real.h>
+
 #include <cstdint>
 
 namespace {
