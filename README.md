@@ -27,5 +27,10 @@ crossing JNI. This keeps C++ template types, callbacks, and ownership rules out 
 Java ABI. Callbacks are intentionally deferred because they need a separate lifetime and
 thread-attachment design.
 
+## Compiling
+- Moss framework 0.1.0
+- C 99
+- C++ 17
+
 ## License
 The project is distributed under the [MIT license](LICENSE).
