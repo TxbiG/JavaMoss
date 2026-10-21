@@ -15,17 +15,26 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      # Installs compilers for native JNI build (CMake & GCC)
+      - name: Install Native Build Dependencies
+        run: |
+            sudo apt-get update
+            sudo apt-get install -y build-essential cmake
+  
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
-          java-version: '21' # Change to '17' or your preferred Java version
+          java-version: '21' # Change to '17' or preferred Java version
           distribution: 'temurin'
-          server-id: github # Matches the server ID in the Maven config step below
+          server-id: github # Matches the server ID in the Maven config
           settings-path: ${{ github.workspace }} # Generates settings.xml in workspace root
 
       # Builds the .jar file and deploys it straight to GitHub Packages tab
       # It automatically logs in using the built-in system GITHUB_TOKEN
       - name: Publish with Maven
-        run: mvn --batch-mode deploy
+        run: |
+          VERSION=${{ github.event.release.tag_name }}
+          VERSION=${VERSION#v} # Strips the "v" prefix (e.g., v1.0.0 -> 1.0.0)
+          mvn --batch-mode deploy -Dproject.version=$VERSION
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
