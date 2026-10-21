@@ -1,7 +1,12 @@
 cmake_minimum_required(VERSION 3.20)
 project(JavaMoss LANGUAGES CXX)
 
-set(MOSS_ROOT "C:/Users/TobyG/Documents/MossFramework" CACHE PATH "Path to the MossFramework checkout")
+if(DEFINED MOSS_FRAMEWORK_DIR)
+    set(MOSS_ROOT "${MOSS_FRAMEWORK_DIR}" CACHE PATH "Path to the MossFramework checkout" FORCE)
+else()
+    set(MOSS_ROOT "C:/Users/TobyG/Documents/MossFramework" CACHE PATH "Path to the MossFramework checkout")
+endif()
+
 if(NOT EXISTS "${MOSS_ROOT}/CMakeLists.txt")
     message(FATAL_ERROR "MOSS_ROOT must point to a MossFramework checkout: ${MOSS_ROOT}")
 endif()
