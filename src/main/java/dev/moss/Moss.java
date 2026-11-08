@@ -4,8 +4,6 @@ package dev.moss;
 public final class Moss {
     private Moss() { }
     private static native void nPollEvents();
-    private static native boolean nSetClipboardText(String text);
-    private static native String nGetClipboardText();
     private static native int nAvailableCpuCores();
     private static native int nCpuCacheLineSize();
     private static native int nSystemRamMiB();
