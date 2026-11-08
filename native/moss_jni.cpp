@@ -452,13 +452,29 @@ JNIEXPORT jintArray JNICALL Java_dev_moss_MossNative_nMonitorGetPosition(JNIEnv*
     jint v[2]={x,y}; jintArray out=env->NewIntArray(2); if(out) env->SetIntArrayRegion(out,0,2,v); return out;
 }
 JNIEXPORT jstring JNICALL Java_dev_moss_MossNative_nMonitorGetName(JNIEnv* env, jclass, jlong monitor) { return to_jstring(env, Moss_MonitorGetName(from_handle<Moss_Monitor>(monitor))); }
-JNIEXPORT void JNICALL Java_dev_moss_MossNative_nMonitorSetGammaRamp(JNIEnv* env, jclass, jlong monitor,
-    jobject size, jobject red, jobject green, jobject blue) {
-    void *s=nullptr,*r=nullptr,*g=nullptr,*b=nullptr;
-    if (!get_direct_buffer(env,size,&s) || !get_direct_buffer(env,red,&r) || !get_direct_buffer(env,green,&g) || !get_direct_buffer(env,blue,&b)) {
-        throw_illegal(env,"all gamma ramp buffers must be direct buffers"); return;
+JNIEXPORT void JNICALL Java_dev_moss_MossNative_nMonitorSetGammaRamp(JNIEnv* env, jclass, jlong monitor, jint size, jobject red, jobject green, jobject blue) {
+    if (size <= 0){
+        throw_illegal(env, "Gamma ramp size must be positive");
+        return;
     }
-    Moss_GammaRamp ramp{static_cast<uint8_t*>(s),static_cast<uint8_t*>(r),static_cast<uint8_t*>(g),static_cast<uint8_t*>(b)};
+
+    void* redData = nullptr;
+    void* greenData = nullptr;
+    void* blueData = nullptr;
+
+    const jlong requiredBytes = static_cast<jlong>(size);
+
+    if (!get_direct_buffer(env, red, &redData, requiredBytes) || !get_direct_buffer(env, green, &greenData, requiredBytes) || !get_direct_buffer(env, blue, &blueData, requiredBytes)) {
+        throw_illegal(env, "Gamma buffers must be direct and large enough");
+        return;
+    }
+
+    Moss_GammaRamp ramp{};
+    ramp.size = static_cast<uint32_t>(size);
+    ramp.red = static_cast<uint8_t*>(redData);
+    ramp.green = static_cast<uint8_t*>(greenData);
+    ramp.blue = static_cast<uint8_t*>(blueData);
+
     Moss_MonitorSetGammaRamp(from_handle<Moss_Monitor>(monitor), &ramp);
 }
 JNIEXPORT jlong JNICALL Java_dev_moss_MossNative_nMonitorGetGammaRamp(JNIEnv*, jclass, jlong monitor) { return to_handle(Moss_MonitorGetGammaRamp(from_handle<Moss_Monitor>(monitor))); }
