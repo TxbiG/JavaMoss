@@ -4,7 +4,7 @@ public final class MossWindow implements AutoCloseable {
     private long handle;
     private MossWindow(long handle) { this.handle = handle; }
 
-    public static MossWindow create(String title, int width, int height) {
+    public static CreateWindow create(String title, int width, int height) {
         Objects.requireNonNull(title, "title");
         MossNative.load();
         long handle = nCreate(title, width, height);
@@ -29,5 +29,12 @@ public final class MossWindow implements AutoCloseable {
 }
 
 public final class Monitor implements AutoCloseable {
-
+    public final class VideoMode implements AutoCloseable;
+    public final class GammaRamp implements AutoCloseable;
 }
+
+
+public final class Locale implements AutoCloseable {}
+public final class Input implements AutoCloseable {}
+public final class Haptic implements AutoCloseable {}
+public final class Capture implements AutoCloseable {}
