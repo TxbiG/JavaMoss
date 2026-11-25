@@ -25,7 +25,7 @@ jobs:
           submodules: recursive
 
       - name: Set up Java Development Kit (for JNI)
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v6
         with:
           distribution: 'temurin'
           java-version: '21'
