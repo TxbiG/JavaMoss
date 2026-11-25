@@ -28,6 +28,7 @@ Java ABI. Callbacks are intentionally deferred because they need a separate life
 thread-attachment design.
 
 ## Compiling
+- CMake 3.20 or newer.
 - Moss framework 0.1.0
 - C 99
 - C++ 17
