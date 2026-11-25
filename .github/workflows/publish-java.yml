@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # Installs compilers for native JNI build (CMake & GCC)
       - name: Install Native Build Dependencies
